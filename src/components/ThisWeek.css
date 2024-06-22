@@ -1,0 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.week-weather-container{
+    width: 100vw;
+    padding: 0px 10%;
+}

@@ -1,0 +1,43 @@
+
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('../fonts/centurygothic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('../fonts/centurygothic_bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Century Gothic';
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    width: 250px;
+    height: 210px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+}
+.time{
+    padding: 10px 0px;
+}
+.time_degree{
+    font-family: inter;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px;
+}
+.weatherType{
+    padding: 10px;
+}
