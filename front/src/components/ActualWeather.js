@@ -3,14 +3,14 @@ import "./ActualWeather.css";
 import positionIcon from "../images/position.svg";
 import { capitalizeFirstChar } from "../utils/UtilsFonction";
 
-const ActualWeather = () => {
+const ActualWeather = ({ data }) => {
   /*change this variable to change the image background according to the weather type from the back-end code*/
-  const position = "Fianarantsoa";
-  const degree = "28";
+  const position = data.city;
+  const degree = data.current.temp;
   const weatherType = "sunny";
-  const precipitation = "2";
-  const humidity = "50";
-  const wind = "12";
+  const precipitation = data.current.precipitation;
+  const humidity = data.current.humidity;
+  const wind = data.current.wind;
 
   //miandraikitra ny sary sy ny representation
   const backgroundImageUrl = require(`../images/${weatherType}.jpg`); //sary background

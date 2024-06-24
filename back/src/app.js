@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const hbs = require("hbs"); // this is usefull for the template, templating language
 const path = require("path");
+const cors = require("cors"); //import cors
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.set("view engine", "hbs");
 app.set("views", viewsPath);
 hbs.registerPartials(partialsPath);
 app.use(express.static(publicPath));
+
+app.use(cors()); // enable cors for all routes
 
 // we are going to create the route and the port listening to that route
 const port = process.env.PORT || 3000; // here the port will depend on the sever we deploy it , unless there is no server it will use 3000

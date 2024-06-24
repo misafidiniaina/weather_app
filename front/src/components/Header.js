@@ -15,7 +15,7 @@ const Header = () => {
             type="text"
             name="search"
             id="search"
-            placeholder="Rechercher Une Ville"
+            placeholder="Search a city"
           />
         </form>
       </div>

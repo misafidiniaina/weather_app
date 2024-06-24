@@ -3,9 +3,10 @@ import Home from './pages/Home';
 
 
 function App() {
+  const address = "Fianarantsoa"
   return (
     <>
-    <Home/>
+    <Home address={address}/>
     </>
   );
 }
