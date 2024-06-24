@@ -1,19 +1,19 @@
 import React from "react";
 import Line from "./Line";
 import "./ThisWeek.css";
+import { fromatDate } from "../utils/UtilsFonction";
 
-const ThisWeek = () => {
+const ThisWeek = ({ thisWeekData }) => {
   return (
     <div className="week-weather-container">
-      <Line day={"Monday 05/06"} weather={"sunny"} degree={"12"} />
-      <Line day={"Tuesday 05/06"} weather={"cloudy"} degree={"12"} />
-      <Line day={"Wendnesday 05/06"} weather={"raining"} degree={"12"} />
-      <Line
-        day={"Wendnesday 05/06"}
-        weather={"partialy_cloudy"}
-        degree={"12"}
-      />
-      <Line day={"Wendnesday 05/06"} weather={"raining"} degree={"12"} />
+      {thisWeekData.map((day, index) => (
+        <Line
+          key={index}
+          day={fromatDate(day.date)}
+          weather={day.description} // change to variable
+          degree={day.temp}
+        />
+      ))}
     </div>
   );
 };

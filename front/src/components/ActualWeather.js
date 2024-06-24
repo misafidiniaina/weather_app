@@ -1,20 +1,20 @@
 import React from "react";
 import "./ActualWeather.css";
 import positionIcon from "../images/position.svg";
-import { capitalizeFirstChar } from "../utils/UtilsFonction";
+import { capitalizeFirstChar, replaceSpace } from "../utils/UtilsFonction";
 
 const ActualWeather = ({ data }) => {
-  /*change this variable to change the image background according to the weather type from the back-end code*/
   const position = data.city;
   const degree = data.current.temp;
-  const weatherType = "sunny";
+  const weatherType = data.current.description; 
   const precipitation = data.current.precipitation;
   const humidity = data.current.humidity;
   const wind = data.current.wind;
 
   //miandraikitra ny sary sy ny representation
-  const backgroundImageUrl = require(`../images/${weatherType}.jpg`); //sary background
-  const representationUrl = require(`../images/${weatherType}_representation.svg`); //sary representation
+  const withUnderscoreName = "clear_sky";
+  const backgroundImageUrl = require(`../images/${withUnderscoreName}.jpg`); //sary background
+  const representationUrl = require(`../images/representation/${weatherType}.svg`); //sary representation
 
   return (
     <div className="parent_container">

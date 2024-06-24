@@ -3,7 +3,7 @@ import "./Line.css";
 import { replaceUnderscores } from "../utils/UtilsFonction";
 
 const Line = ({ day, weather, degree }) => {
-  const weatherImgUrl = require(`../images/${weather}_representation.svg`);
+  const weatherImgUrl = require(`../images/representation/${weather}.svg`);
 
   return (
     <div className="line">

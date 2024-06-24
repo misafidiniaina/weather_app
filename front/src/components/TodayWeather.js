@@ -12,7 +12,6 @@ const TodayWeather = ({ donnees }) => {
           key={time}
           data={donnees.nextPeriods}
           time={time}
-          weatherType={"sunny"} // changes this to a variable
         />
       ))}
     </div>

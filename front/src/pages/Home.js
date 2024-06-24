@@ -37,7 +37,7 @@ const Home = ({ address }) => {
       <Header />
       <ActualWeather data={weatherData} />
       <TodayWeather donnees={weatherData} />
-      <ThisWeek />
+      <ThisWeek thisWeekData={weatherData.next5Days}/>
     </div>
   );
 };

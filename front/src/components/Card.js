@@ -4,8 +4,9 @@ import { capitalizeFirstChar } from "../utils/UtilsFonction";
 
 //mbola misy ovaina le resaka weatherType miandry sary
 
-const Card = ({ data, time, weatherType }) => {
-  const weather = require(`../images/${weatherType}_representation.svg`);
+const Card = ({ data, time }) => {
+  const weatherType = data[time]?.description
+  const weather = require(`../images/representation/${weatherType}.svg`);
   const temperature = data[time]?.temp;
 
   return (
