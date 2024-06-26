@@ -1,0 +1,21 @@
+import React from "react";
+import noResultIllustration from "../images/noresult.svg";
+import "./Noresult.css";
+const Noresult = ({ userSearch }) => {
+  return (
+    <div className="noresult-container">
+      <div className="titre">
+        <h1>No result</h1>
+      </div>
+      <div className="message">
+        Their are no result found for "<span>{userSearch}</span>"
+      </div>
+      <div className="noresult-illustration-container">
+        <img src={noResultIllustration} alt="" width={350} height={350} />
+      </div>
+      <button>revenir</button>
+    </div>
+  );
+};
+
+export default Noresult;

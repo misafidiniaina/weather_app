@@ -80,13 +80,14 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
                     "&.Mui-focused": {
                       color: "black",
                       marginLeft: 2,
+                      color: "gray"
                     },
                   },
                 }}
               />
             )}
           />
-          <input type="submit" value="Search" id="submitBtn" />
+          <input type="submit" value="SEARCH" id="submitBtn" />
         </form>
       </div>
     </div>
