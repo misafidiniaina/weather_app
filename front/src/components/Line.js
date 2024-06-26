@@ -1,6 +1,6 @@
 import React from "react";
 import "./Line.css";
-import { replaceUnderscores } from "../utils/UtilsFonction";
+import { capitalizeFirstChar } from "../utils/UtilsFonction";
 
 const Line = ({ day, weather, degree }) => {
   const weatherImgUrl = require(`../images/representation/${weather}.svg`);
@@ -13,7 +13,7 @@ const Line = ({ day, weather, degree }) => {
       </div>
       <div className="weather-details">
         <p>
-          {replaceUnderscores(weather)} &nbsp;&nbsp;<span>{degree}°</span>
+          {capitalizeFirstChar(weather)} &nbsp;&nbsp;<span>{degree}°</span>
         </p>
       </div>
     </div>

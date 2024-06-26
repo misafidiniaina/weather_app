@@ -50,10 +50,10 @@ const ActualWeather = ({ data }) => {
 
         <div className="right">
           <p className="details">
-            precipitation: <span>{precipitation}% </span> <br />
-            humidity: <span>{humidity}%</span>
+            Precipitation: <span>{precipitation}% </span> <br />
+            Humidity: <span>{humidity}%</span>
             <br />
-            wind: <span>{wind} km/h</span>
+            Wind: <span>{wind} km/h</span>
           </p>
         </div>
       </div>

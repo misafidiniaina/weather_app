@@ -12,3 +12,10 @@ export const getWeatherData = async (address) => {
     throw error;
   }
 };
+
+
+export const fetchCities = async (searchTerm) => {
+  const response = await fetch(`${BASE_URL}/cities?search=${searchTerm}`);
+  const data = await response.json();
+  return data;
+};

@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10%;
+    padding: 10px 10%;
 }
 .logo{
     width: 100%;
@@ -22,16 +22,28 @@
     padding: 0 0px;
     margin: 10px 0px;
 }
-.searchBar input{
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: 2px solid #333333;
-    background-color: transparent;
-    width: 100%;
-}
+
 .searchBar form{
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#submitBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 30px;
+    margin: 0 5px;
+    border-radius: 50px;
+    border: none;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    cursor: pointer;
 }
 .searchIcon{
     position: absolute;
@@ -48,3 +60,9 @@
     }
     
 }
+
+
+
+
+
+

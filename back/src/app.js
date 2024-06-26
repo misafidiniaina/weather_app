@@ -4,6 +4,8 @@ const express = require("express");
 const hbs = require("hbs"); // this is usefull for the template, templating language
 const path = require("path");
 const cors = require("cors"); //import cors
+const fs = require("fs");
+const {Trie} = require("./trie");
 
 const app = express();
 
@@ -26,6 +28,36 @@ app.use(cors()); // enable cors for all routes
 // we are going to create the route and the port listening to that route
 const port = process.env.PORT || 3000; // here the port will depend on the sever we deploy it , unless there is no server it will use 3000
 
+
+let citiesTrie = new Trie();
+let citiesCache = null;
+
+const filePath = path.join(__dirname, '..', 'data', 'cities.json');
+
+fs.readFile(filePath, 'utf8', (err, data) => {
+  if (err) {
+    console.error('Failed to read cities data', err);
+    return;
+  }
+  const cities = JSON.parse(data);
+  cities.forEach(city => citiesTrie.insert(city));
+  citiesCache = cities; // Cache the cities data
+});
+
+app.get('/cities', (req, res) => {
+  const search = req.query.search || '';
+  if (citiesCache && citiesCache.length > 0) {
+    const results = citiesTrie.search(search.toLowerCase());
+    res.json(results);
+  } else {
+    res.status(500).json({ error: "Cities data not loaded yet" });
+  }
+});
+
+
+
+
+
 app.get("/", (req, res) => {
   res.render("index", { title: "weather app" }); // this is going to render the index.hbs and pass the title there
 });
@@ -44,6 +76,8 @@ app.get("/weather", (req, res) => {
     res.send(result);
   });
 });
+
+
 
 //this is going to handle if the route entered is not a proper one
 app.get("*", (req, res) => {
