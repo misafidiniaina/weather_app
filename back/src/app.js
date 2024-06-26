@@ -29,6 +29,8 @@ app.use(cors()); // enable cors for all routes
 const port = process.env.PORT || 3000; // here the port will depend on the sever we deploy it , unless there is no server it will use 3000
 
 
+
+// lecture ny fichier json ao @ data/cities.json(misy ny list ny cities rehetra zakan'i API)
 let citiesTrie = new Trie();
 let citiesCache = null;
 
@@ -44,6 +46,8 @@ fs.readFile(filePath, 'utf8', (err, data) => {
   citiesCache = cities; // Cache the cities data
 });
 
+/////////////////////////
+//end point mandefa ny list ny cities zakanle API napesaina
 app.get('/cities', (req, res) => {
   const search = req.query.search || '';
   if (citiesCache && citiesCache.length > 0) {

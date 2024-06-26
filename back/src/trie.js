@@ -1,3 +1,10 @@
+//algorithme anaovana ny filtre ny city selon ny requête 
+//avy @ user, 
+// NB: tsy nampiasa lecture sequentielle fa Trie data structure mba
+//anamaivanana anle recherche satria lava be le data anaovana recherche 
+
+
+
 class TrieNode {
     constructor() {
       this.children = {};
