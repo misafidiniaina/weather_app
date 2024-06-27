@@ -1,7 +1,13 @@
-import React from "react";
+import React, { act, useState } from "react";
 import noResultIllustration from "../images/noresult.svg";
 import "./Noresult.css";
-const Noresult = ({ userSearch }) => {
+const Noresult = ({ userSearch, onComeback }) => {
+  const [actualCity, setActualCity] = useState('Antananarivo')
+
+  const handleClick = (e) => {
+    onComeback(actualCity)
+    console.log(actualCity)
+  }
   return (
     <div className="noresult-container">
       <div className="titre">
@@ -13,7 +19,7 @@ const Noresult = ({ userSearch }) => {
       <div className="noresult-illustration-container">
         <img src={noResultIllustration} alt="" width={350} height={350} />
       </div>
-      <button>Revenir</button>
+      <button onClick={handleClick}>Revenir</button>
     </div>
   );
 };

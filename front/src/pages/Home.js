@@ -77,7 +77,11 @@ const Home = ({ address }) => {
     }
     setUserInput(data);
   };
-
+  const handeleComeback = (localisationCity) => {
+    setCityValidate(localisationCity)
+    setNoresult(false)
+  }
+  
   useEffect(() => {
     if (noresult) {
       setNoresult(true);
@@ -96,7 +100,7 @@ const Home = ({ address }) => {
         onValidate={handleValidate}
       />
       {noresult ? (
-        <Noresult userSearch={userInput} />
+        <Noresult userSearch={userInput} onComeback={handeleComeback}/>
       ) : (
         weatherData && (
           <div>
