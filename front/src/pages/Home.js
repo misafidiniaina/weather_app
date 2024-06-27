@@ -65,12 +65,15 @@ const Home = ({ address }) => {
 
   const handleValidate = (data) => {
     if (searchData.length === 0) {
+      console.log("ato")
       setNoresult(true);
-    } else if (searchData.length !== 0 && searchData.includes(data)) {
+    } else if (searchData.includes(data)) {
       setNoresult(false);
       setCityValidate(data);
+      console.log("mety")
     } else {
       setNoresult(true);
+      console.log("mety mety")
     }
     setUserInput(data);
   };

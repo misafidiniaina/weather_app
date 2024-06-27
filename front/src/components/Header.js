@@ -14,7 +14,7 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
       if (value.trim() !== "") {
         onSearch(value);
       }
-    }, 2000),
+    }, 100),
     [onSearch]
   );
 
