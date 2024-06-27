@@ -6,7 +6,6 @@ const Noresult = ({ userSearch, onComeback }) => {
 
   const handleClick = (e) => {
     onComeback(actualCity)
-    console.log(actualCity)
   }
   return (
     <div className="noresult-container">

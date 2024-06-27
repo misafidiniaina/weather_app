@@ -3,7 +3,11 @@ import Header from "../components/Header";
 import ActualWeather from "../components/ActualWeather";
 import TodayWeather from "../components/TodayWeather";
 import ThisWeek from "../components/ThisWeek";
-import { getWeatherData, fetchCities } from "../services/WeatherService";
+import {
+  getWeatherData,
+  fetchCities,
+  getLocation,
+} from "../services/WeatherService";
 import Loading from "../components/Loading";
 import Noresult from "../components/Noresult";
 import Nointernet from "../components/Nointernet";
@@ -13,10 +17,47 @@ const Home = ({ address }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchData, setSearchData] = useState([]);
-  const [cityValidate, setCityValidate] = useState("Antananarivo");
+  const [locationCity, setLocationCity] = useState(address);
   const [noresult, setNoresult] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
+  //const [userLocation, setUserLocation] = useState('Antananarivo')
+
+  const isValideCity = async (cityToVerify) => {
+    try {
+      const data = await fetchCities(cityToVerify);
+      if (data.length === 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      console.error("Error fetching cities data:", error); // Debugging log
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const locationInfo = await getLocation();
+        if (isValideCity(locationInfo.city)) {
+          setLocationCity(locationInfo.city);
+        } else if (isValideCity(locationInfo.region)) {
+          setLocationCity(locationInfo.region);
+        } else {
+          setLocationCity(locationInfo.country);
+        }
+      } catch (error) {
+        console.error("Error fetching location:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchLocation();
+  }, []);
+  
 
   useEffect(() => {
     const handleOnline = () => setInternetConnexion(true);
@@ -39,7 +80,7 @@ const Home = ({ address }) => {
       }
       setLoading(true);
       try {
-        const data = await getWeatherData(cityValidate);
+        const data = await getWeatherData(locationCity);
         setWeatherData(data);
         setLoading(false);
       } catch (error) {
@@ -51,7 +92,7 @@ const Home = ({ address }) => {
     if (internetConnexion) {
       fetchWeatherData();
     }
-  }, [cityValidate, internetConnexion]);
+  }, [locationCity, internetConnexion]);
 
   const handleSearch = async (searchValue) => {
     try {
@@ -65,23 +106,20 @@ const Home = ({ address }) => {
 
   const handleValidate = (data) => {
     if (searchData.length === 0) {
-      console.log("ato")
       setNoresult(true);
     } else if (searchData.includes(data)) {
       setNoresult(false);
-      setCityValidate(data);
-      console.log("mety")
+      setLocationCity(data);
     } else {
       setNoresult(true);
-      console.log("mety mety")
     }
     setUserInput(data);
   };
   const handeleComeback = (localisationCity) => {
-    setCityValidate(localisationCity)
-    setNoresult(false)
-  }
-  
+    setLocationCity(localisationCity);
+    setNoresult(false);
+  };
+
   useEffect(() => {
     if (noresult) {
       setNoresult(true);
@@ -100,7 +138,7 @@ const Home = ({ address }) => {
         onValidate={handleValidate}
       />
       {noresult ? (
-        <Noresult userSearch={userInput} onComeback={handeleComeback}/>
+        <Noresult userSearch={userInput} onComeback={handeleComeback} />
       ) : (
         weatherData && (
           <div>

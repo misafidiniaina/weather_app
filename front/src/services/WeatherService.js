@@ -19,3 +19,24 @@ export const fetchCities = async (searchTerm) => {
   const data = await response.json();
   return data;
 };
+
+
+
+export const getLocation = async () => {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    if (!response.ok) {
+      throw new Error('Failed to fetch location');
+    }
+    const data = await response.json();
+    const locationInfo = {
+      city: data.city,
+      region: data.region,
+      contry: data.country
+    }
+    return data;
+  } catch (error) {
+    console.error('Error fetching location:', error);
+    throw error; // Optional: propagate the error back to the caller
+  }
+}

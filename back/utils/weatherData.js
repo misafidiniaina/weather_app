@@ -2,7 +2,7 @@ const axios = require("axios"); //this is the package in order to connect to the
 // this an object for the API openWeatherapp and then use it with function
 const openWeatherMap = {
   BASE_URL: "https://api.openweathermap.org/data/2.5/",
-  SECRET_KEY: "d58de4aafd408692e58cb71de0b35938",
+  SECRET_KEY: process.env.SECRET_KEY,
 };
 
 // function to get the weather forecast for specific time
