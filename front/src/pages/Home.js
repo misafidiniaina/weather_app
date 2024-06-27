@@ -21,19 +21,15 @@ const Home = ({ address }) => {
   const [noresult, setNoresult] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
-  //const [userLocation, setUserLocation] = useState('Antananarivo')
 
   const isValideCity = async (cityToVerify) => {
     try {
       const data = await fetchCities(cityToVerify);
-      if (data.length === 0) {
-        return false;
-      } else {
-        return true;
-      }
+      return data.length > 0;
     } catch (error) {
-      console.error("Error fetching cities data:", error); // Debugging log
+      console.error("Error fetching cities data:", error);
       setError(error.message);
+      return false;
     }
   };
 
@@ -41,9 +37,9 @@ const Home = ({ address }) => {
     const fetchLocation = async () => {
       try {
         const locationInfo = await getLocation();
-        if (isValideCity(locationInfo.city)) {
+        if (await isValideCity(locationInfo.city)) {
           setLocationCity(locationInfo.city);
-        } else if (isValideCity(locationInfo.region)) {
+        } else if (await isValideCity(locationInfo.region)) {
           setLocationCity(locationInfo.region);
         } else {
           setLocationCity(locationInfo.country);
@@ -54,10 +50,9 @@ const Home = ({ address }) => {
         setLoading(false);
       }
     };
-  
+
     fetchLocation();
   }, []);
-  
 
   useEffect(() => {
     const handleOnline = () => setInternetConnexion(true);
@@ -72,26 +67,34 @@ const Home = ({ address }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchWeatherData = async () => {
-      if (!internetConnexion) {
-        setLoading(false);
-        return;
-      }
-      setLoading(true);
-      try {
-        const data = await getWeatherData(locationCity);
-        setWeatherData(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    if (internetConnexion) {
-      fetchWeatherData();
+  const fetchWeatherData = async () => {
+    if (!internetConnexion) {
+      setLoading(false);
+      return;
     }
+    setLoading(true);
+    try {
+      const data = await getWeatherData(locationCity);
+      if (JSON.stringify(data) !== JSON.stringify(weatherData)) {
+        setWeatherData(data);
+      }
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchWeatherData();
+
+    const intervalId = setInterval(() => {
+      if (internetConnexion) {
+        fetchWeatherData();
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   }, [locationCity, internetConnexion]);
 
   const handleSearch = async (searchValue) => {
@@ -99,7 +102,7 @@ const Home = ({ address }) => {
       const data = await fetchCities(searchValue);
       setSearchData(data);
     } catch (error) {
-      console.error("Error fetching cities data:", error); // Debugging log
+      console.error("Error fetching cities data:", error);
       setError(error.message);
     }
   };
@@ -115,6 +118,7 @@ const Home = ({ address }) => {
     }
     setUserInput(data);
   };
+
   const handeleComeback = (localisationCity) => {
     setLocationCity(localisationCity);
     setNoresult(false);
@@ -127,7 +131,7 @@ const Home = ({ address }) => {
   }, [noresult]);
 
   if (!internetConnexion) return <Nointernet />;
-  if (loading) return <Loading />;
+  if (loading && !weatherData) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -140,7 +144,7 @@ const Home = ({ address }) => {
       {noresult ? (
         <Noresult userSearch={userInput} onComeback={handeleComeback} />
       ) : (
-        weatherData && (
+        weatherData && weatherData.current && (
           <div>
             <ActualWeather data={weatherData} />
             <TodayWeather donnees={weatherData} />
