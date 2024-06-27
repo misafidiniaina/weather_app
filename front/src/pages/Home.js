@@ -16,25 +16,42 @@ const Home = ({ address }) => {
   const [cityValidate, setCityValidate] = useState("Antananarivo");
   const [noresult, setNoresult] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [internetConnexion, setInternetConnexion] = useState(true)
+  const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setInternetConnexion(true);
+    const handleOffline = () => setInternetConnexion(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      if (!internetConnexion) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       try {
         const data = await getWeatherData(cityValidate);
         setWeatherData(data);
         setLoading(false);
-        setInternetConnexion(true)
       } catch (error) {
         setError(error.message);
         setLoading(false);
-        setInternetConnexion(false)
       }
     };
 
-    fetchWeatherData();
-  }, [cityValidate]);
+    if (internetConnexion) {
+      fetchWeatherData();
+    }
+  }, [cityValidate, internetConnexion]);
 
   const handleSearch = async (searchValue) => {
     try {
@@ -64,6 +81,7 @@ const Home = ({ address }) => {
     }
   }, [noresult]);
 
+  if (!internetConnexion) return <Nointernet />;
   if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
@@ -75,16 +93,15 @@ const Home = ({ address }) => {
         onValidate={handleValidate}
       />
       {noresult ? (
-        <Noresult userSearch={userInput}/>
+        <Noresult userSearch={userInput} />
       ) : (
-        internetConnexion? (<div>
-          <ActualWeather data={weatherData} />
-          <TodayWeather donnees={weatherData} />
-          <ThisWeek thisWeekData={weatherData.next5Days} />
-        </div>):(
-          <Nointernet />
+        weatherData && (
+          <div>
+            <ActualWeather data={weatherData} />
+            <TodayWeather donnees={weatherData} />
+            <ThisWeek thisWeekData={weatherData.next5Days} />
+          </div>
         )
-        
       )}
     </div>
   );

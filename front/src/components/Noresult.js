@@ -13,7 +13,7 @@ const Noresult = ({ userSearch }) => {
       <div className="noresult-illustration-container">
         <img src={noResultIllustration} alt="" width={350} height={350} />
       </div>
-      <button>revenir</button>
+      <button>Revenir</button>
     </div>
   );
 };

@@ -27,8 +27,15 @@
 
 .noresult-container button{
     padding: 10px 30px;
-    border: 2px solid red;
+    border: 2px solid #FF4500;
     border-radius: 50px;
-    color: red;
+    color: #FF4500;
     font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+.noresult-container button:hover{
+    background-color: #FF4500;
+    color: white;
 }
