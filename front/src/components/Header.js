@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import logo from "../images/meteo.svg";
 import searchIcon from "../images/search.svg";
 import "./Header.css";
@@ -8,18 +8,22 @@ import debounce from "lodash.debounce";
 
 const Header = React.memo(({ options, onSearch, onValidate }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchTimeout = useRef(null);
 
   const debouncedSearch = useCallback(
     debounce((value) => {
       if (value.trim() !== "") {
         onSearch(value);
       }
+      setSearchLoading(false);
     }, 100),
     [onSearch]
   );
 
   const handleChange = (event) => {
     const value = event.target.value;
+    setSearchLoading(true);
     setSearchValue(value);
     debouncedSearch(value);
   };
@@ -29,8 +33,16 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (searchValue.trim() !== "") {
+    if (searchValue.trim() !== "" && !searchLoading) {
       onValidate(searchValue);
+    } else {
+      // Wait for the pending search to finish before submitting
+      searchTimeout.current = setInterval(() => {
+        if (!searchLoading) {
+          clearInterval(searchTimeout.current);
+          onValidate(searchValue);
+        }
+      }, 50);
     }
   };
 
@@ -80,7 +92,7 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
                     "&.Mui-focused": {
                       color: "black",
                       marginLeft: 2,
-                      color: "gray"
+                      color: "gray",
                     },
                   },
                 }}
