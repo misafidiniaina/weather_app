@@ -57,7 +57,6 @@
     align-items: center;
     justify-content: start;
     padding: 10px 15px;
-    width: 100%;
 }
 .cityInformation{
     padding: 0px 10px;
@@ -70,14 +69,13 @@
     font-size: 70px;
     font-weight: bold;
 }
+
+.weather_representation{
+    width: 50%;
+}
 .weather_type{
     padding: 20px 12px;
     font-weight: bold;
-}
-
-.weahter_information{
-    width: 100%;
-    background-color: yellow;
 }
 .details{
     text-align: end;

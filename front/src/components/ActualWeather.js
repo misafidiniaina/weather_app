@@ -26,7 +26,6 @@ const ActualWeather = ({ data, localIndication }) => {
   const timeOfDay = getTimeOfDayFromHour(hour);
 
   //miandraikitra ny sary sy ny representation
-  const withUnderscoreName = "clear_sky";
   const backgroundImageUrl = require(`../images/${timeOfDay}.jpg`); //sary background
   const representationUrl = require(`../images/representation/${weatherType}.svg`); //sary representation
 
