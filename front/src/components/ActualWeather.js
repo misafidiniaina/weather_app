@@ -3,17 +3,31 @@ import "./ActualWeather.css";
 import positionIcon from "../images/position.svg";
 import { capitalizeFirstChar, replaceSpace } from "../utils/UtilsFonction";
 
-const ActualWeather = ({ data }) => {
+const ActualWeather = ({ data, localIndication }) => {
   const position = data.city;
   const degree = data.current.temp;
-  const weatherType = data.current.description; 
+  const weatherType = data.current.description;
   const precipitation = data.current.precipitation;
   const humidity = data.current.humidity;
   const wind = data.current.wind;
+  const hour = data.current.localHour;
+
+  function getTimeOfDayFromHour(hour) {
+    if (hour >= 6 && hour < 12) {
+      return "morning";
+    } else if (hour >= 12 && hour < 18) {
+      return "afternoon";
+    } else if (hour >= 18 && hour < 21) {
+      return "evening";
+    } else {
+      return "night";
+    }
+  }
+  const timeOfDay = getTimeOfDayFromHour(hour);
 
   //miandraikitra ny sary sy ny representation
   const withUnderscoreName = "clear_sky";
-  const backgroundImageUrl = require(`../images/${withUnderscoreName}.jpg`); //sary background
+  const backgroundImageUrl = require(`../images/${timeOfDay}.jpg`); //sary background
   const representationUrl = require(`../images/representation/${weatherType}.svg`); //sary representation
 
   return (
@@ -31,7 +45,10 @@ const ActualWeather = ({ data }) => {
                 width={10}
                 height={17}
               />
-              <p className="lieu">{position}</p>
+              <div className="cityInformation">
+                <p className="lieu">{position}</p>
+                <div className="localIndication">{localIndication}</div>
+              </div>
             </div>
             <div className="degree">{degree}°</div>
             <div className="weather_type">

@@ -21,6 +21,7 @@ const Home = ({ address }) => {
   const [noresult, setNoresult] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
+  const [localIndication, setLocalIndication] = useState("");
 
   const isValideCity = async (cityToVerify) => {
     try {
@@ -44,6 +45,7 @@ const Home = ({ address }) => {
         } else {
           setLocationCity(locationInfo.country);
         }
+        setLocalIndication("(Your actual position)")
       } catch (error) {
         console.error("Error fetching location:", error);
       } finally {
@@ -92,7 +94,7 @@ const Home = ({ address }) => {
       if (internetConnexion) {
         fetchWeatherData();
       }
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [locationCity, internetConnexion]);
@@ -117,11 +119,13 @@ const Home = ({ address }) => {
       setNoresult(true);
     }
     setUserInput(data);
+    setLocalIndication("")
   };
 
   const handeleComeback = (localisationCity) => {
     setLocationCity(localisationCity);
     setNoresult(false);
+    setLocalIndication("(Your actual position)")
   };
 
   useEffect(() => {
@@ -132,7 +136,7 @@ const Home = ({ address }) => {
 
   if (!internetConnexion) return <Nointernet />;
   if (loading && !weatherData) return <Loading />;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <Nointernet />;
 
   return (
     <div>
@@ -146,7 +150,7 @@ const Home = ({ address }) => {
       ) : (
         weatherData && weatherData.current && (
           <div>
-            <ActualWeather data={weatherData} />
+            <ActualWeather data={weatherData} localIndication={localIndication} />
             <TodayWeather donnees={weatherData} />
             <ThisWeek thisWeekData={weatherData.next5Days} />
           </div>

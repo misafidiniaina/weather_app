@@ -57,9 +57,13 @@
     align-items: center;
     justify-content: start;
     padding: 10px 15px;
+    width: 100%;
+}
+.cityInformation{
+    padding: 0px 10px;
 }
 .lieu{
-    padding: 10px;
+    padding: 0px;
 }
 .degree{
     padding: 0px 7px;
@@ -70,8 +74,10 @@
     padding: 20px 12px;
     font-weight: bold;
 }
-.weather_representation{
+
+.weahter_information{
     width: 100%;
+    background-color: yellow;
 }
 .details{
     text-align: end;
@@ -81,4 +87,10 @@
 span{
     font-weight: 900;
     font-size: 1.2rem;
+}
+
+.localIndication{
+    font-size: smaller;
+    font-weight: bold;
+    color: #ffffff;
 }

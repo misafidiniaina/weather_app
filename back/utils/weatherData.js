@@ -141,6 +141,14 @@ const weatherData = async (address, callback) => {
     const periodsForecast = getWeatherByperiod(forecastWeather.list);
     const dailyForecast = aggregateDailyForecast(forecastWeather.list);
 
+    // azahona ny timezone any amle toerana
+    const timezoneOffsetInSeconds = currentWeather.timezone; const now = new Date();
+    const currentTimestamp = now.getTime();
+    const offsetMilliseconds = timezoneOffsetInSeconds * 1000;
+    const timestampInOffset = currentTimestamp + offsetMilliseconds;
+    const localDate = new Date(timestampInOffset);
+    console.log(localDate.getUTCHours())
+    
     const weatherData = {
       city: currentWeather.name,
       current: {
@@ -148,8 +156,9 @@ const weatherData = async (address, callback) => {
         temp: Math.round(currentWeather.main.temp - 273.15), // temperature
         description: currentWeather.weather[0].description, // description anlay weather amzao
         humidity: currentWeather.main.humidity, // humidity
-        wind: currentWeather.wind.speed, // wind
+        wind: currentWeather.wind.speed , // wind
         precipitation: currentWeather.rain ? currentWeather.rain["1h"] : 0, //precipitation
+        localHour: localDate.getUTCHours(),
       },
       nextPeriods: periodsForecast, // Prévisions par périodes (matin, après-midi, soir)
       next5Days: dailyForecast.slice(0, 5), // prevision du 5 jours
