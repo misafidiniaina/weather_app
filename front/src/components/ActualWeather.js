@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./ActualWeather.css";
 import positionIcon from "../images/position.svg";
 import { capitalizeFirstChar, replaceSpace } from "../utils/UtilsFonction";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const ActualWeather = ({ data, localIndication }) => {
   const position = data.city;
@@ -28,6 +30,20 @@ const ActualWeather = ({ data, localIndication }) => {
   //miandraikitra ny sary sy ny representation
   const backgroundImageUrl = require(`../images/${timeOfDay}.jpg`); //sary background
   const representationUrl = require(`../images/representation/${weatherType}.svg`); //sary representation
+
+
+
+
+
+  //animation code
+  gsap.registerPlugin(useGSAP);
+  const container = useRef();
+
+
+  useGSAP(() => {
+    gsap.from('.detail-content', {y: -100 , autoAlpha: 0 , duration:1 ,stagger:0.2 , ease: "power2.out"}
+    )
+  })
 
   return (
     <div className="parent_container">
@@ -66,10 +82,11 @@ const ActualWeather = ({ data, localIndication }) => {
 
         <div className="right">
           <p className="details">
-            Precipitation: <span>{precipitation}% </span> <br />
-            Humidity: <span>{humidity}%</span>
-            <br />
-            Wind: <span>{wind} km/h</span>
+            <div className="detail-content">
+              Precipitation: <span>{precipitation}% </span>
+            </div>
+            <div className="detail-content">Humidity: <span>{humidity}%</span></div>
+            <div className="detail-content">Wind: <span>{wind} km/h</span></div>
           </p>
         </div>
       </div>

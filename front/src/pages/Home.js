@@ -11,6 +11,7 @@ import {
 import Loading from "../components/Loading";
 import Noresult from "../components/Noresult";
 import Nointernet from "../components/Nointernet";
+import gsap from "gsap";
 
 const Home = ({ address }) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -45,7 +46,7 @@ const Home = ({ address }) => {
         } else {
           setLocationCity(locationInfo.country);
         }
-        setLocalIndication("(Your actual position)")
+        setLocalIndication("(Your actual position)");
       } catch (error) {
         console.error("Error fetching location:", error);
       } finally {
@@ -119,13 +120,13 @@ const Home = ({ address }) => {
       setNoresult(true);
     }
     setUserInput(data);
-    setLocalIndication("")
+    setLocalIndication("");
   };
 
   const handeleComeback = (localisationCity) => {
     setLocationCity(localisationCity);
     setNoresult(false);
-    setLocalIndication("(Your actual position)")
+    setLocalIndication("(Your actual position)");
   };
 
   useEffect(() => {
@@ -148,9 +149,13 @@ const Home = ({ address }) => {
       {noresult ? (
         <Noresult userSearch={userInput} onComeback={handeleComeback} />
       ) : (
-        weatherData && weatherData.current && (
+        weatherData &&
+        weatherData.current && (
           <div>
-            <ActualWeather data={weatherData} localIndication={localIndication} />
+            <ActualWeather
+              data={weatherData}
+              localIndication={localIndication}
+            />
             <TodayWeather donnees={weatherData} />
             <ThisWeek thisWeekData={weatherData.next5Days} />
           </div>

@@ -41,3 +41,9 @@
 .weatherType{
     padding: 10px;
 }
+
+
+.time_degree p{
+    opacity: 1;
+    transform: scale(1);
+}

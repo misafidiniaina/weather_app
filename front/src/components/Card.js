@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Card.css";
 import { capitalizeFirstChar } from "../utils/UtilsFonction";
+import { gsap } from "gsap";
 
 //mbola misy ovaina le resaka weatherType miandry sary
 
 const Card = ({ data, time }) => {
-  const weatherType = data[time]?.description
+  const weatherType = data[time]?.description;
   const weather = require(`../images/representation/${weatherType}.svg`);
   const temperature = data[time]?.temp;
 
