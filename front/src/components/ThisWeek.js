@@ -3,7 +3,10 @@ import Line from "./Line";
 import "./ThisWeek.css";
 import { fromatDate } from "../utils/UtilsFonction";
 
+
 const ThisWeek = ({ thisWeekData }) => {
+
+  
   return (
     <div className="week-weather-container">
       {thisWeekData.map((day, index) => (

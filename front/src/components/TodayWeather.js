@@ -10,7 +10,7 @@ const TodayWeather = ({ donnees }) => {
   gsap.registerPlugin(useGSAP);
 
   useGSAP(() => {
-    gsap.from(".card", { autoAlpha: 0, scale: 0.8, duration: 0.5,  stagger: 0.1});
+    gsap.from(".card", { autoAlpha: 0, scale: 0.7, duration: 1, ease: "power4.out", stagger: 0.1}, "-=0.7");
   });
 
   return (

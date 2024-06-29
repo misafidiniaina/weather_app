@@ -147,7 +147,6 @@ const weatherData = async (address, callback) => {
     const offsetMilliseconds = timezoneOffsetInSeconds * 1000;
     const timestampInOffset = currentTimestamp + offsetMilliseconds;
     const localDate = new Date(timestampInOffset);
-    console.log(localDate.getUTCHours())
     
     const weatherData = {
       city: currentWeather.name,

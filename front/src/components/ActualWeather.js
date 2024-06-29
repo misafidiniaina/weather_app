@@ -41,8 +41,9 @@ const ActualWeather = ({ data, localIndication }) => {
 
 
   useGSAP(() => {
-    gsap.from('.detail-content', {y: -100 , autoAlpha: 0 , duration:1 ,stagger:0.2 , ease: "power2.out"}
-    )
+    gsap.from('.container', { autoAlpha: 0.5, duration: 1})
+    gsap.from('.detail-content', {y: -50 , autoAlpha: 0 , duration:1 ,stagger:0.2 , ease: "power4.out"})
+    gsap.from('.degree , .localisation , .weather_type ', {autoAlpha: 0, duration: 1, x: "-30%", stagger: 0.1,  ease: "power4.out"})
   })
 
   return (

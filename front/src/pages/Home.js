@@ -11,7 +11,6 @@ import {
 import Loading from "../components/Loading";
 import Noresult from "../components/Noresult";
 import Nointernet from "../components/Nointernet";
-import gsap from "gsap";
 
 const Home = ({ address }) => {
   const [weatherData, setWeatherData] = useState(null);
@@ -23,6 +22,7 @@ const Home = ({ address }) => {
   const [userInput, setUserInput] = useState("");
   const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
   const [localIndication, setLocalIndication] = useState("");
+
 
   const isValideCity = async (cityToVerify) => {
     try {
@@ -138,6 +138,11 @@ const Home = ({ address }) => {
   if (!internetConnexion) return <Nointernet />;
   if (loading && !weatherData) return <Loading />;
   if (error) return <Nointernet />;
+
+
+
+
+  
 
   return (
     <div>

@@ -5,6 +5,8 @@ import "./Header.css";
 import TextField from "@mui/material/TextField";
 import { Autocomplete } from "@mui/material";
 import debounce from "lodash.debounce";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Header = React.memo(({ options, onSearch, onValidate }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -45,6 +47,13 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
       }, 50);
     }
   };
+
+
+  //animation
+  gsap.registerPlugin(useGSAP);
+  useGSAP(() => {
+    gsap.from('.header', {autoAlpha: 0, y: "-30%", duration: 0.5})
+  })
 
   return (
     <div className="header">
