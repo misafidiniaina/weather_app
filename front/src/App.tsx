@@ -3,7 +3,7 @@ import Home from './pages/Home';
 
 
 function App() {
-  const address = "Antananarivo"
+  const address = "Fianarantsoa"
   
   return (
     <>

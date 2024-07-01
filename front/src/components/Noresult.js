@@ -1,12 +1,12 @@
-import React, { act, useState } from "react";
+import React, { useState } from "react";
 import noResultIllustration from "../images/noresult.svg";
 import "./Noresult.css";
 const Noresult = ({ userSearch, onComeback }) => {
-  const [actualCity, setActualCity] = useState('Antananarivo')
+  const [actualCity, setActualCity] = useState("Fianarantsoa");
 
   const handleClick = (e) => {
-    onComeback(actualCity)
-  }
+    onComeback(actualCity);
+  };
   return (
     <div className="noresult-container">
       <div className="titre">

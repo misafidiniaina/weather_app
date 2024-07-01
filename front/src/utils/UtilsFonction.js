@@ -1,9 +1,6 @@
 export function replaceUnderscores(str) {
   return str.replace(/_/g, " ");
 }
-export function replaceSpace(str) {
-  return str.replace(/\s/g, "_");
-}
 
 // Function to capitalize the first character of a string
 export function capitalizeFirstChar(str) {

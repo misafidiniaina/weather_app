@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
 import logo from "../images/meteo.svg";
-import searchIcon from "../images/search.svg";
 import "./Header.css";
 import TextField from "@mui/material/TextField";
 import { Autocomplete } from "@mui/material";
@@ -48,12 +47,11 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
     }
   };
 
-
   //animation
   gsap.registerPlugin(useGSAP);
   useGSAP(() => {
-    gsap.from('.header', {autoAlpha: 0, y: "-30%", duration: 0.5})
-  })
+    gsap.from(".header", { autoAlpha: 0, y: "-30%", duration: 0.5 });
+  });
 
   return (
     <div className="header">
@@ -99,7 +97,6 @@ const Header = React.memo(({ options, onSearch, onValidate }) => {
                     marginLeft: 2,
                     color: "#737373",
                     "&.Mui-focused": {
-                      color: "black",
                       marginLeft: 2,
                       color: "gray",
                     },

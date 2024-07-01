@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Card.css";
 import { capitalizeFirstChar } from "../utils/UtilsFonction";
-import { gsap } from "gsap";
 
 //mbola misy ovaina le resaka weatherType miandry sary
 

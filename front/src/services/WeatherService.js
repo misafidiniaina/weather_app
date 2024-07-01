@@ -34,7 +34,7 @@ export const getLocation = async () => {
       region: data.region,
       contry: data.country
     }
-    return data;
+    return locationInfo;
   } catch (error) {
     console.error('Error fetching location:', error);
     throw error; // Optional: propagate the error back to the caller

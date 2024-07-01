@@ -23,7 +23,6 @@ const Home = ({ address }) => {
   const [internetConnexion, setInternetConnexion] = useState(navigator.onLine);
   const [localIndication, setLocalIndication] = useState("");
 
-
   const isValideCity = async (cityToVerify) => {
     try {
       const data = await fetchCities(cityToVerify);
@@ -138,11 +137,6 @@ const Home = ({ address }) => {
   if (!internetConnexion) return <Nointernet />;
   if (loading && !weatherData) return <Loading />;
   if (error) return <Nointernet />;
-
-
-
-
-  
 
   return (
     <div>

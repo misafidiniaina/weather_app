@@ -1,7 +1,7 @@
-import React, {useRef} from "react";
+import React from "react";
 import "./ActualWeather.css";
 import positionIcon from "../images/position.svg";
-import { capitalizeFirstChar, replaceSpace } from "../utils/UtilsFonction";
+import { capitalizeFirstChar } from "../utils/UtilsFonction";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -37,7 +37,6 @@ const ActualWeather = ({ data, localIndication }) => {
 
   //animation code
   gsap.registerPlugin(useGSAP);
-  const container = useRef();
 
 
   useGSAP(() => {
