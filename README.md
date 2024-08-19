@@ -1,5 +1,5 @@
-this is a nodeJS school project, a weather application using google api
+this is a nodeJS school project, a weather application
 
 
 front= react JS
-back= Node js (+ google api)
+back= Node js (+api)
