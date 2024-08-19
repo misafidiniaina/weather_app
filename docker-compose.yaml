@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    image: liantsoatsiorinirina117/weather_app_back:v1
+    environment:
+      PORT: 5000
+      SECRET_KEY: d58de4aafd408692e58cb71de0b35938
+    ports: 
+      - "5000:5000"
+    
+
+  frontend:
+    image: liantsoatsiorinirina117/weather_app_front:v1
+    depends_on:
+      - backend
+
+    ports:
+      - "1000:3000"
+
